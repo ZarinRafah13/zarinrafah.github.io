@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # If you have a build step, add it here. For plain static files no build is required.
+      # Example build step (uncomment if needed):
+      # - name: Build (example)
+      #   run: |
+      #     echo "No build step configured"
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: .   # change this to ./dist or ./public if your site files are in a subfolder
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
